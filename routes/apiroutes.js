@@ -31,11 +31,6 @@ module.exports = (app) => {
     Note.push(newNote);
     res.json(newNote);
   });
-//       title: req.body.title,
-//       text: req.body.text,
-//       id: req.body.id,
-//       res.json(NewNote);
-// });
 
 
 //   // I added this below code so you could clear out the table while working with the functionality.
