@@ -1,50 +1,41 @@
 //don't touch front end code (html or js)
-//create a fetch route to get, create, delete note
-//will need app.get, app.post, app.delete
+//create a fetch route to get, create, delete note, save
 //will need a bare minimum of 4 api routes
 //create a note with a unique identifier- //uuid- look up
+//will need app.get, app.post, app.delete
+
 
 // Dependencies
 const express = require('express');
 const fs = require('fs') //fs to read and write to file and update
+const PORT = process.env.PORT || 3000
+const app = express();
 
 //will need to make this easier
 app.use(express.static('public'));
 
-// // respond with "hello world" when a GET request is made to the homepage
-// app.get('/', function (req, res) {
-//     //     res.send("")
-//     //   })
+// Sets up the Express app to handle data parsing
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // Basic route that sends the user first to the index Page
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, '/public/index.html')));
 // Basic route that sends the user first to the notes Page
 app.get('/notes', (req, res) => res.sendFile(path.join(__dirname, '/public/notes.html')));
 
-
-
-  // POST method route
-app.post('/', function (req, res) {
-    res.send('POST request to the homepage')
-  })
-
-  //Delete method route
-  app.delete('/', function (req, res) {
-    res.send('DELETE request to homepage')
-  })
-
-const app = express();
-
-// Sets an initial port. We"ll use this later in our listener
-const PORT = process.env.PORT || 3000;
-
-// Sets up the Express app to handle data parsing
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-
-//
+//connects to apiroutes.js
 require('./routes/apiRoutes')(app);
+
+//connects to htmlroutes.js
 require('./routes/htmlRoutes')(app);
+
+
+//   //Delete method route
+//   app.delete('/', function (req, res) {
+//     res.send('DELETE request to homepage')
+//   })
+
+
 
 
 // LISTENER
