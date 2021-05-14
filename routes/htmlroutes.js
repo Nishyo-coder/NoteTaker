@@ -5,6 +5,7 @@
 app.get('/', (req, res) => res.send(path.join(__dirname, 'index.html')));
 
 
+const { notEqual } = require('assert');
 const path = require('path');
 
 // ROUTING
@@ -27,3 +28,4 @@ module.exports = (app) => {
     res.sendFile(path.join(__dirname, '../views/index.html'));
   });
 };
+
