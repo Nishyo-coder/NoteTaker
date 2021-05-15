@@ -32,29 +32,25 @@ app.get('/notes', (req, res) => res.sendFile(path.join(__dirname, '/public/notes
 // If no matching route is found default to home
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/index.html'));
-    return json
-  });
-//   * `GET /api/notes` should read the `db.json` file and return all saved notes as JSON.
-app.get('/api/notes', (req, res) => {
-    return res.json(Note);
-   
   });
 
+//   * `GET /api/notes` should read the `db.json` file and return all saved notes as JSON.
+app.get('/notes', (req, res) => {
+    return res.json(Note);
+  });
 
 // req.body hosts is equal to the JSON post sent from the user
   // This works because of our body parsing middleware
 
 app.post('/api/notes', (req, res) => {
-    const notes = JSON.parse(data)
+    // const notes = JSON.parse(data)
     const newNote =  req.body
     // newNote.noteName = newNote.noteName = newNote.title.text.replace(/\s+/g, '').toLowerCase();
     console.log(newNote);
-
     Note.push(newNote);
     res.json(newNote);
-    fs.writeFile('./Develop/db/db.json');
-    res.json(notes);
-    
+    // fs.writeFile('./Develop/db/db.json', JSON.stringify(Note));   
+    // return res.json(Note) 
   });
 
 
