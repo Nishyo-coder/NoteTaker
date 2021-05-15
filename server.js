@@ -9,6 +9,10 @@ const data = fs.readFileSync('Develop/db/db.json')
 const notes = JSON.parse(data)
 console.log(notes)
 
+//id importer to create new ID
+const { v4: uuidv4 } = require('uuid');
+uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
+
 const PORT = process.env.PORT || 3000
 const app = express();
 const path = require('path')
@@ -41,8 +45,8 @@ app.get('/api/notes', (req, res) => {
 app.post('/api/notes', (req, res) => {
     // const notes = JSON.parse(data)
     const newNote =  req.body
-    // newNote.noteName = newNote.noteName = newNote.title.text.replace(/\s+/g, '').toLowerCase();
     console.log(newNote);
+
     Note.push(newNote);
     res.json(newNote);
     // fs.writeFile('./Develop/db/db.json', data ;   
@@ -50,18 +54,16 @@ app.post('/api/notes', (req, res) => {
   });
 
 
-  //Delete method route
-  app.delete('/', function (req, res) {
-    res.send('DELETE request to homepage')
-  })
+  // //Delete method route- don't have to do 
+  // app.delete('/', function (req, res) {
+  //   res.send('DELETE request to homepage')
+  // })
 
 
-
-
-// If no matching route is found default to home
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, './public/index.html'));
-});
+// // If no matching route is found default to home
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, './public/index.html'));
+// });
 
 // LISTENER
 // The below code effectively "starts" our server
