@@ -1,5 +1,4 @@
 //will need a bare minimum of 4 api routes
-//create a note with a unique identifier- //uuid- look up
 //will need app.get, app.post, app.delete
 
 // Dependencies
@@ -36,22 +35,47 @@ app.get('/notes', (req, res) => res.sendFile(path.join(__dirname, './public/note
 //   * `GET /api/notes` should read the `db.json` file and return all saved notes as JSON.
 app.get('/api/notes', (req, res) => {
   //code to retrieve saved notes
-    return res.json();
+     res.sendFile(path.join(__dirname, './Develop/db/db.json'))
   });
 
 // req.body hosts is equal to the JSON post sent from the user
   // This works because of our body parsing middleware
+//   const newCharacter = req.body;
 
+//   // Using a RegEx Pattern to remove spaces from newCharacter
+//   // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
+//   newCharacter.routeName = newCharacter.name.replace(/\s+/g, '').toLowerCase();
+//   console.log(newCharacter);
+
+//   characters.push(newCharacter);
+//   res.json(newCharacter);
+// });
 app.post('/api/notes', (req, res) => {
-    // const notes = JSON.parse(data)
-    const newNote =  req.body
+  console.log(req.body);
+  const newNote = {
+    title: req.body.title,
+    text: req.body.text,
+    // id: 
+  };
     console.log(newNote);
-
     Note.push(newNote);
-    res.json(newNote);
-    // fs.writeFile('./Develop/db/db.json', data ;   
-    // return res.json(Note) 
+
+    fs.writeFileSync('./Develop/db/db.json', JSON.stringify(Note), function (err) {
+      if (err) throw err;
+      return res.json(Note)
+    });
   });
+
+  //   const newNote =  req.body
+  //   console.log(newNote);
+  //   Note.push(newNote);
+  //   res.json(newNote);
+
+  //   const notes = JSON.parse(fs.readFileSync('./Develop/db/db.json'));
+  //   fs.writeFileSync('./Develop/db/db.json', JSON.stringify(notes))
+  //   // fs.writeFile('./Develop/db/db.json', data ;   
+  //   res.json(notes);
+  // });
 
 
   // //Delete method route- don't have to do 
