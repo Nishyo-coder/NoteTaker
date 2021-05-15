@@ -1,11 +1,10 @@
-//don't touch front end code (html or js)
 //create a fetch route to get, create, delete note, save
 //will need a bare minimum of 4 api routes
 //create a note with a unique identifier- //uuid- look up
 //will need app.get, app.post, app.delete
 
-
 // Dependencies
+const { json } = require('express');
 const express = require('express');
 const fs = require('fs') //fs to read and write to file and update
 const PORT = process.env.PORT || 3000
@@ -19,35 +18,40 @@ app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-const Note = [
-    {
-      noteName: 'input',
-      title: 'input',
-      text: 'Jedi Master',
-      id: 900,
-    },
-];
+const Note = require('./Develop/db/db.json')
 
 // Basic route that sends the user first to the index Page
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, '/public/index.html')));
+
 // Basic route that sends the user first to the notes Page
 app.get('/notes', (req, res) => res.sendFile(path.join(__dirname, '/public/notes.html')));
 
-//connects to apiroutes.js
-// require('./routes/apiRoutes')(app);
-// req.body hosts is equal to the JSON post sent from the user
-  // This works because of our body parsing middleware
-app.post('/api/notes', (req, res) => {
-    const newNote =  req.body
-    newNote.noteName = newNote.noteName = newNote.name.replace(/\s+/g, '').toLowerCase();
-    console.log(newNote);
-  
-    Note.push(newNote);
-    res.json(newNote);
+// If no matching route is found default to home
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/index.html'));
+    return json
   });
 
-//connects to htmlroutes.js
-require('./routes/htmlRoutes')(app);
+app.get('/notes', (req, res) => {
+    return res.json(Note);
+  });
+
+//   * `GET /api/notes` should read the `db.json` file and return all saved notes as JSON.
+// req.body hosts is equal to the JSON post sent from the user
+  // This works because of our body parsing middleware
+
+app.post('/api/notes', (req, res) => {
+    const notes = json.parse(fs.readFile('./Develop/db/db.json'));
+    const newNote =  req.body
+    newNote.noteName = newNote.noteName = newNote.title.replace(/\s+/g, '').toLowerCase();
+    console.log(newNote);
+
+    Note.push(newNote);
+    res.json(newNote);
+    fs.writeFile('./Develop/db/db.json')
+    res.json(notes);
+    
+  });
 
 
 //   //Delete method route
