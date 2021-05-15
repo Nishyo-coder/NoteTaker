@@ -1,4 +1,3 @@
-//create a fetch route to get, create, delete note, save
 //will need a bare minimum of 4 api routes
 //create a note with a unique identifier- //uuid- look up
 //will need app.get, app.post, app.delete
@@ -7,6 +6,10 @@
 const { json } = require('express');
 const express = require('express');
 const fs = require('fs') //fs to read and write to file and update
+const data = fs.readFileSync('Develop/db/db.json')
+const notes = JSON.parse(data)
+console.log(notes)
+
 const PORT = process.env.PORT || 3000
 const app = express();
 const path = require('path')
@@ -54,10 +57,10 @@ app.post('/api/notes', (req, res) => {
   });
 
 
-//   //Delete method route
-//   app.delete('/', function (req, res) {
-//     res.send('DELETE request to homepage')
-//   })
+  //Delete method route
+  app.delete('/', function (req, res) {
+    res.send('DELETE request to homepage')
+  })
 
 
 
