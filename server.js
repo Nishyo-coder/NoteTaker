@@ -24,19 +24,20 @@ const Note = require('./Develop/db/db.json')
 console.log(Note)
 
 // Basic route that sends the user first to the index Page
-app.get('/', (req, res) => res.sendFile(path.join(__dirname, '/public/index.html')));
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, './public/index.html')));
 
 // Basic route that sends the user first to the notes Page
-app.get('/notes', (req, res) => res.sendFile(path.join(__dirname, '/public/notes.html')));
+app.get('/notes', (req, res) => res.sendFile(path.join(__dirname, './public/notes.html')));
 
 // If no matching route is found default to home
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/index.html'));
+    res.sendFile(path.join(__dirname, './public/index.html'));
   });
 
 //   * `GET /api/notes` should read the `db.json` file and return all saved notes as JSON.
-app.get('/notes', (req, res) => {
-    return res.json(Note);
+app.get('/api/notes', (req, res) => {
+  //code to retrieve saved notes
+    return res.json();
   });
 
 // req.body hosts is equal to the JSON post sent from the user
@@ -49,7 +50,7 @@ app.post('/api/notes', (req, res) => {
     console.log(newNote);
     Note.push(newNote);
     res.json(newNote);
-    // fs.writeFile('./Develop/db/db.json', JSON.stringify(Note));   
+    // fs.writeFile('./Develop/db/db.json', data ;   
     // return res.json(Note) 
   });
 
