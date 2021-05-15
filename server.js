@@ -29,11 +29,6 @@ app.get('/', (req, res) => res.sendFile(path.join(__dirname, './public/index.htm
 // Basic route that sends the user first to the notes Page
 app.get('/notes', (req, res) => res.sendFile(path.join(__dirname, './public/notes.html')));
 
-// If no matching route is found default to home
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, './public/index.html'));
-  });
-
 //   * `GET /api/notes` should read the `db.json` file and return all saved notes as JSON.
 app.get('/api/notes', (req, res) => {
   //code to retrieve saved notes
@@ -62,6 +57,11 @@ app.post('/api/notes', (req, res) => {
 
 
 
+
+// If no matching route is found default to home
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/index.html'));
+});
 
 // LISTENER
 // The below code effectively "starts" our server
