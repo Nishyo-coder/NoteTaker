@@ -9,8 +9,8 @@ const notes = JSON.parse(data)
 console.log(notes)
 
 //id importer to create new ID
-const { v4: uuidv4 } = require('uuid');
-uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
+const {v4:uuid} = require('uuid');
+// ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
 
 const PORT = process.env.PORT || 3000
 const app = express();
@@ -41,9 +41,7 @@ app.get('/api/notes', (req, res) => {
 // req.body hosts is equal to the JSON post sent from the user
   // This works because of our body parsing middleware
 //   const newCharacter = req.body;
-
-//   // Using a RegEx Pattern to remove spaces from newCharacter
-//   // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
+  
 //   newCharacter.routeName = newCharacter.name.replace(/\s+/g, '').toLowerCase();
 //   console.log(newCharacter);
 
@@ -55,7 +53,7 @@ app.post('/api/notes', (req, res) => {
   const newNote = {
     title: req.body.title,
     text: req.body.text,
-    // id: 
+    id: uuid()
   };
     console.log(newNote);
     Note.push(newNote);
@@ -84,10 +82,10 @@ app.post('/api/notes', (req, res) => {
   // })
 
 
-// // If no matching route is found default to home
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname, './public/index.html'));
-// });
+// If no matching route is found default to home
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/index.html'));
+});
 
 // LISTENER
 // The below code effectively "starts" our server
