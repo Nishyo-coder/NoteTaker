@@ -63,8 +63,9 @@ app.post('/api/notes', (req, res) => {
 
     fs.writeFileSync('./Develop/db/db.json', JSON.stringify(Note), function (err) {
       if (err) throw err;
-      return res.json(Note)
+      // return res.json(Note)
     });
+    res.json(Note)
   });
 
   //   const newNote =  req.body
