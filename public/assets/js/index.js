@@ -89,8 +89,8 @@ const handleNoteDelete = (e) => {
     activeNote = {};
   }
 
-  deleteNote(noteId).then(() => {
-    getAndRenderNotes();
+  deleteNote(noteId).then((allnotes) => {
+    getAndRenderNotes(allnotes);
     renderActiveNote();
   });
 };

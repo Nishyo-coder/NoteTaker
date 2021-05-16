@@ -63,7 +63,6 @@ app.post('/api/notes', (req, res) => {
 
     fs.writeFileSync('./Develop/db/db.json', JSON.stringify(Note), function (err) {
       if (err) throw err;
-      // return res.json(Note)
     });
     res.json(Note)
   });
@@ -87,9 +86,19 @@ app.post('/api/notes', (req, res) => {
   //   res.json({ ok: true });
   // });
   // //Delete method route- don't have to do 
-  app.delete('/api/notes/:id', function (req, res) {
-    res.send('DELETE request to homepage')
-  })
+  // In order to delete a note: you'll need to read all notes from the `db.json` file, 
+  // remove the note with the given `id` property, 
+  // and then rewrite the notes to the `db.json` file.
+
+  
+  // app.deleteNote('/api/notes/:id', 
+  // // function (req, res) {
+  // //   const data = fs.readFileSync('./Develop/db/db.json')
+  //   const deletenotes = JSON.parse(data)
+  //   const deleteNote = {
+    
+  //   };
+  //   res.json(deletenote)  })
 
 
 // If no matching route is found default to home
