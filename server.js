@@ -34,8 +34,11 @@ app.get('/notes', (req, res) => res.sendFile(path.join(__dirname, './public/note
 
 //   * `GET /api/notes` should read the `db.json` file and return all saved notes as JSON.
 app.get('/api/notes', (req, res) => {
+  const data = fs.readFileSync('./Develop/db/db.json')
+  const notes = JSON.parse(data)
+  res.json(notes)
   //code to retrieve saved notes
-     res.sendFile(path.join(__dirname, './Develop/db/db.json'))
+    //  res.sendFile(path.join(__dirname, './Develop/db/db.json'))
   });
 
 // req.body hosts is equal to the JSON post sent from the user
@@ -75,11 +78,17 @@ app.post('/api/notes', (req, res) => {
   //   res.json(notes);
   // });
 
+  // app.post('/api/clear', (req, res) => {
+  //   // Empty out the arrays of data
+  //   tableData.length = 0;
+  //   waitListData.length = 0;
 
+  //   res.json({ ok: true });
+  // });
   // //Delete method route- don't have to do 
-  // app.delete('/', function (req, res) {
-  //   res.send('DELETE request to homepage')
-  // })
+  app.delete('/api/notes/:id', function (req, res) {
+    res.send('DELETE request to homepage')
+  })
 
 
 // If no matching route is found default to home
